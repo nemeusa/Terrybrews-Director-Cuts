@@ -6,12 +6,6 @@ public class Client : MonoBehaviour
 {
     FSM<TypeFSM> _fsm;
 
-    public float speed, exitSpeed;
-
-    public bool imposter;
-
-
-    public string[] charlaGood, charlaBad;
 
 
     public Color agua;
@@ -21,29 +15,32 @@ public class Client : MonoBehaviour
 
     public string[] opciones = { "Agua", "Jugo", "Cerveza", "Gaseosa" };
 
+
+    [Header("Client dates")]
     [SerializeField] string[] names;
     [SerializeField] string profesion;
+    public float speed, exitSpeed;
+    [Range(0, 100)][SerializeField] int _imposterPorcentaje; 
+    public bool imposter;
+    public bool isDeath;
+    [HideInInspector] public TMP_Text textNames;
+    [HideInInspector] public TMP_Text textProfesion;
 
 
+    [Header("Order")]
+    public string[] charlaGood, charlaBad;
+    [HideInInspector] public bool goodOrder, badOrder;
     [HideInInspector] public GameObject globoTexto;
     [HideInInspector] public string currentRequest;
     [HideInInspector] public TMP_Text textOrder;
     [HideInInspector] public TMP_Text textCharla;
-    [HideInInspector] public TMP_Text textNames;
-    [HideInInspector] public TMP_Text textProfesion;
-
-    [HideInInspector]
-    public Dialogue dialogue;
 
 
-    [HideInInspector]
-    public Chair chair;
-
-    [HideInInspector]
-    public Player player;
-
-    [HideInInspector]
-    public BarManager barManager;
+    public ParticleSystem goodClientParticles, badClientParticles;
+    [HideInInspector] public Dialogue dialogue;
+    [HideInInspector] public Chair chair;
+    [HideInInspector] public Player player;
+    [HideInInspector] public BarManager barManager;
 
 
     private void Awake()
@@ -53,6 +50,9 @@ public class Client : MonoBehaviour
         _fsm = new FSM<TypeFSM>();
         _fsm.AddState(TypeFSM.EnterBar, new EnterBarState(_fsm, this));
         _fsm.AddState(TypeFSM.Order, new OrderState(_fsm, this));
+        _fsm.AddState(TypeFSM.ExitBar, new ExitBarState(_fsm, this));
+        _fsm.AddState(TypeFSM.Attack, new AttackState(_fsm, this));
+        _fsm.AddState(TypeFSM.Death, new DeathState(_fsm, this));
 
         _fsm.ChangeState(TypeFSM.EnterBar);
 
@@ -61,12 +61,18 @@ public class Client : MonoBehaviour
     private void Update()
     {
         _fsm.Execute();
+
+
+        if (isDeath)
+        {
+            _fsm.ChangeState(TypeFSM.Death);
+        }
     }
 
 
     public void RandomImposter()
     {
-        if (UnityEngine.Random.Range(0, 101) > 50) imposter = true;
+        if (UnityEngine.Random.Range(0, 101) < _imposterPorcentaje) imposter = true;
         else imposter = false;
         // Charla();
     }
@@ -126,6 +132,25 @@ public class Client : MonoBehaviour
             textOrder.color = gaseosa;
         }
     }
+
+    public void TextColor()
+    {
+        if (player.help)
+        {
+            if (!imposter) textCharla.color = UnityEngine.Color.green;
+            else textCharla.color = UnityEngine.Color.red;
+        }
+
+        else textCharla.color = UnityEngine.Color.black;
+    }
+
+    public IEnumerator IsDestroy()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
+
 
 
     public void namesAndOffices()

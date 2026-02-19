@@ -14,6 +14,7 @@ public class OrderState : State
 
     public void OnEnter()
     {
+        _client.chair.Ocuppy();
         //_client.soundEfects.PlaySoundFromGroup(2);
         NuevaPeticion();
         _client.dialogue.CharlaThemes();
@@ -23,13 +24,15 @@ public class OrderState : State
         _client.textOrder.text = $"<color=black>Quiero </color> {_client.currentRequest}";
         _client.textCharla.text = _client.dialogue.currentDialogue;
         _client.colorDrink();
+        var dir = _client.player.transform.position - _client.transform.position;
+        //_client.transform.forward = new Vector3(-dir.x, 0, -dir.z);
     }
 
     public void OnUpdate()
     {
         _client.transform.position = _client.chair.transform.position;
-        var dir = _client.player.transform.position - _client.transform.position;
-        _client.transform.forward = new Vector3(-dir.x, 0, -dir.z);
+
+
         //var globoDir = _client.player.transform.position - _client.transform.position;
         //_client.globoTexto.transform.forward = -globoDir;
 
@@ -37,20 +40,25 @@ public class OrderState : State
 
 
         Debug.Log("Order");
-        //_client.chair.Ocuppy();
-        //_client.TextColor();
+        _client.TextColor();
 
 
-        //if (_client.goodOrder || _client.badOrder)
-        //{
-        //    if (_client.imposter) _fsm.ChangeState(TypeFSM.Attack);
+        if (_client.goodOrder || _client.badOrder)
+        {
+            Debug.Log("Entregado");
+            if (_client.imposter) _fsm.ChangeState(TypeFSM.Attack);
 
-        //    else
-        //    {
-        //        if (_client.goodOrder) _fsm.ChangeState(TypeFSM.ExitBar);
-        //        if (_client.badOrder) _fsm.ChangeState(TypeFSM.ExitBar);
-        //    }
-        //}
+            else
+            {
+                //if (_client.goodOrder) _fsm.ChangeState(TypeFSM.ExitBar);
+                //if (_client.badOrder) _fsm.ChangeState(TypeFSM.ExitBar);
+
+                //if (_client.goodOrder) Debug.Log("BUENA ORDEN");
+                //if (_client.badOrder) Debug.Log("MALA ORDEN");
+
+                _fsm.ChangeState(TypeFSM.ExitBar);
+            }
+        }
 
 
     }
