@@ -22,7 +22,7 @@ public class Contador : MonoBehaviour
 
         UnityEngine.Color color = UnityEngine.Color.green;
         string textoDinero = "+ $" + cantidad.ToString("F2");
-        //texto.GetComponent<ContadorEfect>().SetText(textoDinero, color);
+        texto.GetComponent<ContadorEffect>().SetText(textoDinero, color);
     }
 
     public void DescontarGanancia(float cantidad)
@@ -36,6 +36,6 @@ public class Contador : MonoBehaviour
         if (player._score <= 0) cantidad = 0;
 
         string textoDinero = "- $" + cantidad.ToString("F2");
-        //texto.GetComponent<ContadorEfect>().SetText(textoDinero, color);
+        texto.GetComponent<ContadorEffect>().SetText(textoDinero, color);
     }
 }

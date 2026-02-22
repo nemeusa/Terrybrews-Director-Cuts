@@ -5124,8 +5124,9 @@ MonoBehaviour:
   profesion: civil
   speed: 3
   exitSpeed: 20
-  _imposterPorcentaje: 0
+  _imposterPorcentaje: 50
   imposter: 0
+  isDeath: 0
   textNames: {fileID: 0}
   textProfesion: {fileID: 0}
   charlaGood:
@@ -5160,10 +5161,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc9211cdd946eb4fbb757496f1a0333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
-  themeDialogues: []
+  themeDialogues:
+  - theme: 0
+    type: 0
+    phrases:
+    - Me cago de frio
+    - soy un super gridito
+  - theme: 1
+    type: 0
+    phrases:
+    - toy todo transpirado wacho
+    - abri la ventana che
+  - theme: 2
+    type: 1
+    phrases:
+    - ta lleno de autos lcdll
+    - 3 horas en auto para venir
+  - theme: 3
+    type: 1
+    phrases:
+    - no habia nadie en la calle
+    - llegue volando
   currentDialogue: 
   Theme: 
-  _probabilityTheme: 0
+  _probabilityTheme: 50
 --- !u!65 &8717537257176560935
 BoxCollider:
   m_ObjectHideFlags: 0

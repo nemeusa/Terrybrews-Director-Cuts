@@ -14,7 +14,7 @@ public class OrderState : State
 
     public void OnEnter()
     {
-        _client.chair.Ocuppy();
+        //_client.chair.Ocuppy();
         //_client.soundEfects.PlaySoundFromGroup(2);
         NuevaPeticion();
         _client.dialogue.CharlaThemes();
@@ -25,7 +25,7 @@ public class OrderState : State
         _client.textCharla.text = _client.dialogue.currentDialogue;
         _client.colorDrink();
         var dir = _client.player.transform.position - _client.transform.position;
-        //_client.transform.forward = new Vector3(-dir.x, 0, -dir.z);
+        _client.transform.forward = new Vector3(-dir.x, 0, -dir.z);
     }
 
     public void OnUpdate()
@@ -65,8 +65,8 @@ public class OrderState : State
 
     public void OnExit()
     {
-        //_client.globoTexto.SetActive(false);
-        //_client.LeaveChair();
+        _client.globoTexto.SetActive(false);
+        _client.LeaveChair();
     }
 
     IEnumerator niceOrder()

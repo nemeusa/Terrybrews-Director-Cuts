@@ -28,6 +28,13 @@ public class Player : MonoBehaviour
     public Image _corduraImageFill;
 
 
+
+    private void Update()
+    {
+        if (_score < 0) _score = 0;
+        _scoreText.text = "$ " + _score;
+    }
+
     public void MoreMoney(int money)
     {
         _score += money;

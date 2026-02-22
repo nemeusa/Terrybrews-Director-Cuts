@@ -21,7 +21,7 @@ public class ExitBarState : State
             //_client.soundEfects.PlaySoundFromGroup(3);
             _client.goodClientParticles.Play();
             //_client.GetComponent<MeshRenderer>().material.color = Color.green;
-            //_client.player.MoreMoney(100);
+            _client.player.MoreMoney(100);
             //_client.player.cordura += 5;
         }
         else if (_client.badOrder)
@@ -29,7 +29,7 @@ public class ExitBarState : State
             //_client.soundEfects.PlaySoundFromGroup(4);
             _client.badClientParticles.Play();
             //_client.GetComponent<MeshRenderer>().material.color = Color.red;
-            //_client.player.LessMoney(50);
+            _client.player.LessMoney(50);
         }
     }
 

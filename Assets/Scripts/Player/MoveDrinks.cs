@@ -49,7 +49,7 @@ public class MoveDrinks : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, _beverageLayer))
         {
-            Client client = hit.collider.GetComponent<Client>();
+            Client client = hit.collider.GetComponentInParent<Client>();
             //float alturaMinimaEntrega = 3; // Ajustá este valor a la altura real de tu barra
 
             //if (hit.point.y >= alturaMinimaEntrega)

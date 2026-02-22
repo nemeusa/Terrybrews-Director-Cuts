@@ -8,7 +8,7 @@ public class TalksThemes : MonoBehaviour
     public string currentClima;
     public string currentEventos;
     public string[] currentTheme;
-    [SerializeField] TMP_Text textTheme;
+    //[SerializeField] TMP_Text textTheme;
     public int _indexTheme;
     [SerializeField] private TVManager tvManagerVideo;
     public GameObject _boton;
@@ -28,7 +28,7 @@ public class TalksThemes : MonoBehaviour
         InitialTheme();
 
 
-        originalColor = textTheme.color;
+        //originalColor = textTheme.color;
 
     }
 
@@ -46,11 +46,11 @@ public class TalksThemes : MonoBehaviour
         if (_indexTheme < currentTheme.Length)
         {
             charla = currentTheme[_indexTheme];
-            textTheme.text = charla;
+            //textTheme.text = charla;
         }
         else
         {
-            textTheme.text = "canal random";
+            //textTheme.text = "canal random";
         }
 
         tvManagerVideo?.UpdateTVVideo();

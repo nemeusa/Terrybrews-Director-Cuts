@@ -45,7 +45,6 @@ public class Pump : MonoBehaviour
     public string currentRequest;
     Player _player;
     [HideInInspector] public Client _client;
-    private string _selectedDrink = null;
 
 
     private void Awake()
@@ -153,12 +152,12 @@ public class Pump : MonoBehaviour
                 if (_client.imposter)
                 {
                     //GameStats.impostoresEliminados++;
-                    //_player.MoreMoney(100);
+                    _player.MoreMoney(100);
                     StartCoroutine(correct());
                 }
                 else
                 {
-                    //_player.LessMoney(200);
+                    _player.LessMoney(200);
                     _player.cordura -= _player._corduraMatarCliente;
                     StartCoroutine(Incorrect());
                 }
@@ -187,7 +186,6 @@ public class Pump : MonoBehaviour
         meshPumpHand.enabled = true;
 
         _usePump = true;
-        _selectedDrink = null;
 
         if (!_hasPlayedShotgunSound && _audioSourceFeedback != null && _soundDesbloqueoEscopeta != null)
         {

@@ -42,9 +42,16 @@ public class Client : MonoBehaviour
     [HideInInspector] public Player player;
     [HideInInspector] public BarManager barManager;
 
+    [Header("Waypoints")]
+    [HideInInspector] public PathManager pathManager;
+    [HideInInspector]public SpawnFollowClientsManager followClientsManager;
+    public Coroutine pathRoutine;
+
 
     private void Awake()
     {
+        followClientsManager = SpawnFollowClientsManager.instance;
+        pathManager = followClientsManager.pathManager;
         dialogue = GetComponent<Dialogue>();
 
         _fsm = new FSM<TypeFSM>();
@@ -53,15 +60,18 @@ public class Client : MonoBehaviour
         _fsm.AddState(TypeFSM.ExitBar, new ExitBarState(_fsm, this));
         _fsm.AddState(TypeFSM.Attack, new AttackState(_fsm, this));
         _fsm.AddState(TypeFSM.Death, new DeathState(_fsm, this));
+        _fsm.AddState(TypeFSM.Searsh, new SearshChairState(_fsm, this));
 
         _fsm.ChangeState(TypeFSM.EnterBar);
-
+        //_fsm.ChangeState(TypeFSM.Searsh);
     }
 
     private void Update()
     {
         _fsm.Execute();
 
+
+        if (Input.GetButtonDown("Jump")) _fsm.ChangeState(TypeFSM.Searsh);
 
         if (isDeath)
         {
@@ -184,6 +194,44 @@ public class Client : MonoBehaviour
         textProfesion.text = profesion;
     }
 
+    public void FollowTarget(Transform target)
+    {
+        Vector2 dir = target.transform.position - transform.position;
+
+        dir.Normalize();
+
+        Vector3 movement = new Vector3(dir.x, dir.y, 0f) * speed * Time.deltaTime;
+        transform.position += movement;
+        //rb.MovePosition(movement);
+    }
+
+    public bool Mindistance(Transform target, float minDistance)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (target.position - transform.position).normalized, minDistance);
+        if (hit.collider != null)
+            return false;
+
+        return Vector2.Distance(transform.position,
+            target.position) < minDistance;
+    }
+
+
+    public CustomNodes FindClosestNode()
+    {
+        CustomNodes closest = null;
+        float minDist = Mathf.Infinity;
+        foreach (var node in pathManager.pathfinding.GetAllNodes())
+        {
+            float dist = Vector3.Distance(transform.position, node.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = node;
+            }
+        }
+        return closest;
+    }
+
 }
 
 
@@ -195,5 +243,6 @@ public enum TypeFSM
     Imposter,
     Attack,
     Death,
+    Searsh,
     VIP
 }
