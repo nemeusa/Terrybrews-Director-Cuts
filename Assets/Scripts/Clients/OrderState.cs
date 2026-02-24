@@ -50,13 +50,8 @@ public class OrderState : State
 
             else
             {
-                //if (_client.goodOrder) _fsm.ChangeState(TypeFSM.ExitBar);
-                //if (_client.badOrder) _fsm.ChangeState(TypeFSM.ExitBar);
-
-                //if (_client.goodOrder) Debug.Log("BUENA ORDEN");
-                //if (_client.badOrder) Debug.Log("MALA ORDEN");
-
-                _fsm.ChangeState(TypeFSM.ExitBar);
+                if (_client.goodOrder) _fsm.ChangeState(TypeFSM.Searsh);
+                if (_client.badOrder) _fsm.ChangeState(TypeFSM.ExitBar);
             }
         }
 

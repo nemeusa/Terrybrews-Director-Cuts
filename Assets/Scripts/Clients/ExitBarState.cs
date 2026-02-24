@@ -14,19 +14,20 @@ public class ExitBarState : State
 
     public void OnEnter()
     {
-        _dir = (Random.Range(0, 2) == 0) ? Vector3.left : Vector3.right;
+
+        //_dir = (Random.Range(0, 2) == 0) ? Vector3.left : Vector3.right;
         if (_client.goodOrder)
         {
             //GameStats.ordersCompletadas++;
             //_client.soundEfects.PlaySoundFromGroup(3);
             _client.goodClientParticles.Play();
             //_client.GetComponent<MeshRenderer>().material.color = Color.green;
-            _client.player.MoreMoney(100);
             //_client.player.cordura += 5;
         }
         else if (_client.badOrder)
         {
             //_client.soundEfects.PlaySoundFromGroup(4);
+            _client.SetRuta(_client.tableManager.rutaExit);
             _client.badClientParticles.Play();
             //_client.GetComponent<MeshRenderer>().material.color = Color.red;
             _client.player.LessMoney(50);
@@ -37,9 +38,12 @@ public class ExitBarState : State
     {
         // Debug.Log("Exit");
         //var dir = _client.chair.transform.position + _client.transform.position;
-        _client.transform.forward = _dir;
-        _client.transform.position += _dir * _client.exitSpeed * Time.deltaTime;
-        _client.StartCoroutine(_client.IsDestroy());
+        _client.FollowTarget();
+
+        //_client.transform.forward = _dir;
+        //_client.transform.position += _dir * _client.exitSpeed * Time.deltaTime;
+        if (_client.ruta.Count == 0) _client.StartCoroutine(_client.IsDestroy());
+
     }
 
     public void OnExit()

@@ -13,19 +13,26 @@ public class EnterBarState : State
 
     public void OnEnter()
     {
+        _client.SetRuta(_client.tableManager.rutaEnter);
     }
 
     public void OnUpdate()
     {
         Debug.Log("entrando");
-        var dir = _client.chair.transform.position + new Vector3(1, 0, 0) - _client.transform.position;
-        _client.transform.forward = -dir;
-        _client.transform.position += (dir * _client.speed * Time.deltaTime);
+        if (_client.ruta.Count != 0)
+        _client.FollowTarget();
 
-        if (MathF.Abs(dir.x - 1) < 0.1f)
+        if (_client.ruta.Count == 0)
         {
-            _fsm.ChangeState(TypeFSM.Order);
+            Debug.Log("frente la barra");
+            var dir = _client.chair.transform.position + new Vector3(1, 0, 0) - _client.transform.position;
+            _client.transform.forward = -dir;
+            _client.transform.position += (dir * _client.speed * Time.deltaTime);
+
+            if (MathF.Abs(dir.x - 1) < 0.1f) _fsm.ChangeState(TypeFSM.Order);
+            
         }
+
 
     }
 

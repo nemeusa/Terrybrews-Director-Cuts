@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Client : MonoBehaviour
@@ -45,12 +47,22 @@ public class Client : MonoBehaviour
     [Header("Waypoints")]
     [HideInInspector] public PathManager pathManager;
     [HideInInspector]public SpawnFollowClientsManager followClientsManager;
+    [HideInInspector]public TableManager tableManager;
     public Coroutine pathRoutine;
+    public Queue<Transform> ruta = new Queue<Transform>();
+    public Queue<Transform> rutaExit = new Queue<Transform>();
+    public Queue<Transform> rutaEnterBar = new Queue<Transform>();
+    public Queue<Transform> rutaExitBar = new Queue<Transform>();
+    public Transform destino;
+    public bool onTable;
+    public Table mesaLibre;
+
 
 
     private void Awake()
     {
         followClientsManager = SpawnFollowClientsManager.instance;
+        tableManager = TableManager.instance;
         pathManager = followClientsManager.pathManager;
         dialogue = GetComponent<Dialogue>();
 
@@ -193,43 +205,57 @@ public class Client : MonoBehaviour
         textNames.text = names[UnityEngine.Random.Range(0, names.Length)];
         textProfesion.text = profesion;
     }
-
-    public void FollowTarget(Transform target)
+     
+    public void FollowTarget()
     {
-        Vector2 dir = target.transform.position - transform.position;
 
-        dir.Normalize();
+        transform.position = Vector3.MoveTowards(
+        transform.position,
+        destino.position,
+          exitSpeed * Time.deltaTime
+        );
 
-        Vector3 movement = new Vector3(dir.x, dir.y, 0f) * speed * Time.deltaTime;
-        transform.position += movement;
-        //rb.MovePosition(movement);
+        Vector3 direccion;
+        if (!onTable) direccion = (destino.position - transform.position).normalized;
+        else direccion = (mesaLibre.pointView.position - transform.position).normalized;
+        transform.forward = -direccion;
+        if (Vector3.Distance(transform.position, destino.position) < 0.1f) SiguientePunto();
     }
 
-    public bool Mindistance(Transform target, float minDistance)
+    public void SetRuta(List<Transform> puntos)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (target.position - transform.position).normalized, minDistance);
-        if (hit.collider != null)
-            return false;
-
-        return Vector2.Distance(transform.position,
-            target.position) < minDistance;
+        ruta = new Queue<Transform>(puntos);
+        SiguientePunto();
     }
 
-
-    public CustomNodes FindClosestNode()
+    void SiguientePunto()
     {
-        CustomNodes closest = null;
-        float minDist = Mathf.Infinity;
-        foreach (var node in pathManager.pathfinding.GetAllNodes())
+        if (ruta.Count == 0)
         {
-            float dist = Vector3.Distance(transform.position, node.transform.position);
-            if (dist < minDist)
-            {
-                minDist = dist;
-                closest = node;
-            }
+            //moviendose = false;
+            //Sentarse();
+            Debug.Log("Sentado");
+            StartCoroutine(ExitBar());
+            return;
         }
-        return closest;
+
+        destino = ruta.Dequeue();
+        //moviendose = true;
+    }
+
+    IEnumerator ExitBar()
+    {
+        onTable = true;
+        yield return new WaitForSeconds(Random.Range(30, 61));
+        onTable = false;
+        _fsm.ChangeState(TypeFSM.ExitBar);
+    }
+
+
+    public void IrHacia(Transform nuevoDestino)
+    {
+        destino = nuevoDestino;
+        Debug.Log("nuevo destino");
     }
 
 }
