@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Pump : MonoBehaviour
@@ -60,6 +61,24 @@ public class Pump : MonoBehaviour
     private void Update()
     {
         PumpConditions();
+
+        if (_usePump)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit2, 100f, _clientLayer))
+            {
+                if (_client != null) _client.globoTextoCharla.SetActive(false);
+
+                Client client = hit2.collider.GetComponentInParent<Client>();
+
+                client.globoTextoCharla.SetActive(true);
+
+                _client = client;
+                // hit2.collider.GetComponentInChildren<BillboardUI>(true).gameObject.SetActive(true);
+            }
+        }
+
     }
 
     void PumpConditions()
@@ -80,6 +99,7 @@ public class Pump : MonoBehaviour
                 if (moveDrinks != null)
                     if (moveDrinks.isDraggingDrink)
                     {
+
                         PumpOff();
                         _pumpCode = null;
                     }
@@ -114,7 +134,11 @@ public class Pump : MonoBehaviour
             }
             else if (Physics.Raycast(ray, out hit, 100f, _clientLayer))
             {
+                if (_client != null) _client.globoTextoCharla.SetActive(false);
+
                 Client client = hit.collider.GetComponentInParent<Client>();
+
+                client.globoTextoCharla.SetActive(true);
 
 
                 _client = client;
@@ -176,6 +200,7 @@ public class Pump : MonoBehaviour
 
     void PumpOn()
     {
+        if (_client != null) _client.globoTextoCharla.SetActive(false);
 
         Debug.Log("escopeta agarrada");
 
@@ -202,6 +227,7 @@ public class Pump : MonoBehaviour
 
     void PumpOff()
     {
+        if (_client != null) _client.globoTextoCharla.SetActive(false);
 
         Debug.Log("Escopeta dejada");
         //_pumpHandAni.SetBool("Hand gets it", false);
@@ -215,6 +241,14 @@ public class Pump : MonoBehaviour
     }
 
 
+    public void ReloadOneBullet()
+    {
+        if (_currentAmmo < _maxAmmo)
+        {
+            _currentAmmo += 2;
+            UpdateAmmoVisuals();
+        }
+    }
 
     IEnumerator ShowShotgunUnlockFeedback()
     {

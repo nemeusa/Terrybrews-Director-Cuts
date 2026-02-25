@@ -25,17 +25,18 @@ public class Client : MonoBehaviour
     [Range(0, 100)][SerializeField] int _imposterPorcentaje; 
     public bool imposter;
     public bool isDeath;
-    [HideInInspector] public TMP_Text textNames;
-    [HideInInspector] public TMP_Text textProfesion;
+    public TMP_Text textNames;
+    public TMP_Text textProfesion;
 
 
     [Header("Order")]
     public string[] charlaGood, charlaBad;
     [HideInInspector] public bool goodOrder, badOrder;
-    [HideInInspector] public GameObject globoTexto;
+    public GameObject globoTexto;
+    public GameObject globoTextoCharla;
     [HideInInspector] public string currentRequest;
-    [HideInInspector] public TMP_Text textOrder;
-    [HideInInspector] public TMP_Text textCharla;
+    public TMP_Text textOrder;
+    public TMP_Text textCharla;
 
 
     public ParticleSystem goodClientParticles, badClientParticles;
@@ -61,6 +62,8 @@ public class Client : MonoBehaviour
 
     private void Awake()
     {
+        globoTexto.SetActive(false);
+        globoTextoCharla.SetActive(false);
         followClientsManager = SpawnFollowClientsManager.instance;
         tableManager = TableManager.instance;
         pathManager = followClientsManager.pathManager;
@@ -104,11 +107,11 @@ public class Client : MonoBehaviour
         this.chair = chair;
         this.chair.Ocuppy();
         StartCoroutine(GoSeat());
-        globoTexto = this.chair.globo;
-        textOrder = this.chair.textoPedido;
-        textCharla = this.chair.textoCharla;
-        textNames = this.chair.textoNames;
-        textProfesion = this.chair.textoProfesion;
+        //globoTexto = this.chair.globo;
+        //textOrder = this.chair.textoPedido;
+        //textCharla = this.chair.textoCharla;
+        //textNames = this.chair.textoNames;
+        //textProfesion = this.chair.textoProfesion;
 
     }
 
