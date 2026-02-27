@@ -17,22 +17,36 @@ public class CameraMove : MonoBehaviour
     private Vector2 currentRotation;
     private Vector2 targetRotation;
 
+    Vector3 startRot;
+
+    public ShowShop _shop;
+
     void Start()
     {
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
-        Vector3 startRot = transform.localEulerAngles;
+        startRot = transform.localEulerAngles;
         currentRotation = new Vector2(startRot.y, startRot.x);
         targetRotation = currentRotation;
     }
 
     void Update()
     {
+
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        targetRotation.x += mouseX;
-        targetRotation.y -= mouseY;
+        if (_shop.useShop)
+        {
+            targetRotation = startRot;
+        }
+        else
+        {
+
+            targetRotation.x += mouseX;
+            targetRotation.y -= mouseY;
+        }
 
         targetRotation.x = Mathf.Clamp(targetRotation.x,-limitLeft,limitRight);
 

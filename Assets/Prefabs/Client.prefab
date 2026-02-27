@@ -718,7 +718,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3531567456964967348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d83cc9e663a5d4299686a6412d4ddb, type: 3}
   m_Name: 
@@ -5930,7 +5930,7 @@ MonoBehaviour:
   profesion: civil
   speed: 3
   exitSpeed: 20
-  _imposterPorcentaje: 0
+  _imposterPorcentaje: 100
   imposter: 0
   isDeath: 0
   textNames: {fileID: 8017906301062784121}
@@ -5956,8 +5956,6 @@ MonoBehaviour:
   chair: {fileID: 0}
   player: {fileID: 0}
   barManager: {fileID: 0}
-  pathManager: {fileID: 0}
-  followClientsManager: {fileID: 0}
   tableManager: {fileID: 0}
   destino: {fileID: 0}
   onTable: 0

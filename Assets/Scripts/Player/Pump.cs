@@ -62,13 +62,13 @@ public class Pump : MonoBehaviour
     {
         PumpConditions();
 
-        if (_usePump)
-        {
+        //if (_usePump)
+        //{
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit2, 100f, _clientLayer))
             {
-                if (_client != null) _client.globoTextoCharla.SetActive(false);
+                //if (_client != null) _client.globoTextoCharla.SetActive(false);
 
                 Client client = hit2.collider.GetComponentInParent<Client>();
 
@@ -77,7 +77,8 @@ public class Pump : MonoBehaviour
                 _client = client;
                 // hit2.collider.GetComponentInChildren<BillboardUI>(true).gameObject.SetActive(true);
             }
-        }
+            else if (_client != null) _client.globoTextoCharla.SetActive(false);
+        //}
 
     }
 
@@ -134,11 +135,11 @@ public class Pump : MonoBehaviour
             }
             else if (Physics.Raycast(ray, out hit, 100f, _clientLayer))
             {
-                if (_client != null) _client.globoTextoCharla.SetActive(false);
+                //if (_client != null) _client.globoTextoCharla.SetActive(false);
 
                 Client client = hit.collider.GetComponentInParent<Client>();
 
-                client.globoTextoCharla.SetActive(true);
+                //client.globoTextoCharla.SetActive(true);
 
 
                 _client = client;

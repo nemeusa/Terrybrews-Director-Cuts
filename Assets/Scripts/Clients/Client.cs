@@ -46,8 +46,6 @@ public class Client : MonoBehaviour
     [HideInInspector] public BarManager barManager;
 
     [Header("Waypoints")]
-    [HideInInspector] public PathManager pathManager;
-    [HideInInspector]public SpawnFollowClientsManager followClientsManager;
     [HideInInspector]public TableManager tableManager;
     public Coroutine pathRoutine;
     public Queue<Transform> ruta = new Queue<Transform>();
@@ -64,9 +62,7 @@ public class Client : MonoBehaviour
     {
         globoTexto.SetActive(false);
         globoTextoCharla.SetActive(false);
-        followClientsManager = SpawnFollowClientsManager.instance;
         tableManager = TableManager.instance;
-        pathManager = followClientsManager.pathManager;
         dialogue = GetComponent<Dialogue>();
 
         _fsm = new FSM<TypeFSM>();
@@ -253,14 +249,6 @@ public class Client : MonoBehaviour
         onTable = false;
         _fsm.ChangeState(TypeFSM.ExitBar);
     }
-
-
-    public void IrHacia(Transform nuevoDestino)
-    {
-        destino = nuevoDestino;
-        Debug.Log("nuevo destino");
-    }
-
 }
 
 

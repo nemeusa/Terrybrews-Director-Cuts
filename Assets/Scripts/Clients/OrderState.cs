@@ -32,6 +32,7 @@ public class OrderState : State
     {
         _client.transform.position = _client.chair.transform.position;
 
+        
 
         //var globoDir = _client.player.transform.position - _client.transform.position;
         //_client.globoTexto.transform.forward = -globoDir;
@@ -47,7 +48,6 @@ public class OrderState : State
         {
             Debug.Log("Entregado");
             if (_client.imposter) _fsm.ChangeState(TypeFSM.Attack);
-
             else
             {
                 if (_client.goodOrder) _fsm.ChangeState(TypeFSM.Searsh);

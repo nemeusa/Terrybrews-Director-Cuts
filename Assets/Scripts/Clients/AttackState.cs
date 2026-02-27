@@ -17,7 +17,9 @@ public class AttackState : State
         //_client.soundEfects.PlaySoundFromGroup(0);
         //_client.player.urp.StartCoroutine(_client.player.urp.damageURP());
         _client.player.LessMoney(50);
-       // _client.player.cordura -= _client.player.getDamage;
+        _client.player.cordura -= _client.player.getDamage;
+        var dir = _client.player.transform.position - _client.transform.position;
+        _client.transform.forward = -dir;
         //_client.player.StartCoroutine(_client.player.flash.PostActive());
     }
 
@@ -25,7 +27,7 @@ public class AttackState : State
     {
         //_client.GetComponent<MeshRenderer>().material.color = Color.red;
         var dir = _client.player.transform.position - _client.transform.position;
-        _client.transform.forward = -dir;
+        //_client.transform.forward = -dir;
         _client.transform.position += dir * _client.speed * Time.deltaTime;
         //_client.transform.Translate(Vector3.forward * _client.exitSpeed * Time.deltaTime);
         _client.StartCoroutine(_client.IsDestroy());

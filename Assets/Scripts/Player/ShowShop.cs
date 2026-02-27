@@ -6,7 +6,7 @@ public class ShowShop : MonoBehaviour
     public GameObject _handShop;
     public GameObject _barShop;
     public MeshRenderer _barShopMesh;
-   // public GameObject _canvasShop; // Nuevo objeto complementario
+    //public GameObject _canvasShop; // Nuevo objeto complementario
 
     SoundEfects soundEfects;
 
@@ -53,11 +53,13 @@ public class ShowShop : MonoBehaviour
 
             if (clickeado == _barShop && _barShopMesh.enabled)
             {
+
                 useShop = true;
+                Cursor.lockState = CursorLockMode.None;
                 _barShopMesh.enabled = false;
                 _handShop.SetActive(true);
-              //  _canvasShop.SetActive(true);
-                //_barShop.GetComponent<Collider>().enabled = false;
+                //_canvasShop.SetActive(true);
+                _barShop.GetComponent<Collider>().enabled = false;
             }
             soundEfects.PlaySoundFromGroup(0);
         }
@@ -65,11 +67,12 @@ public class ShowShop : MonoBehaviour
             if (!_barShopMesh.enabled)
             {
                 useShop = false;
+                Cursor.lockState = CursorLockMode.Locked;
                 _barShopMesh.enabled = true;
                 _handShop.SetActive(false);
-              //  _canvasShop.SetActive(false);
+                //_canvasShop.SetActive(false);
                 soundEfects.PlaySoundFromGroup(0);
-                //_barShop.GetComponent<Collider>().enabled = true;
+                _barShop.GetComponent<Collider>().enabled = true;
             }
     }
 
