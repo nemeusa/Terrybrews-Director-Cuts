@@ -1599,6 +1599,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4662762766585428643, guid: 8b2a5baea69a255439c029aa8876a7ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00857
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662762766585428643, guid: 8b2a5baea69a255439c029aa8876a7ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00258
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662762766585428643, guid: 8b2a5baea69a255439c029aa8876a7ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1793
+      objectReference: {fileID: 0}
     - target: {fileID: 6463722245353729825, guid: 8b2a5baea69a255439c029aa8876a7ce, type: 3}
       propertyPath: m_Name
       value: Escopeta
@@ -2182,6 +2194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bar
       objectReference: {fileID: 0}
+    - target: {fileID: 3471461697088615402, guid: d4b01bdaa24c7564ab7a8485d7abbea3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 45e6cd09fd3aa6e44a4cd027bcc820d3, type: 2}
     - target: {fileID: 6711177842810863078, guid: d4b01bdaa24c7564ab7a8485d7abbea3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -44.30666
@@ -2222,6 +2238,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7221979471910550887, guid: d4b01bdaa24c7564ab7a8485d7abbea3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221979471910550887, guid: d4b01bdaa24c7564ab7a8485d7abbea3, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ca846cc9a79226541bdedc2e030da414, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
